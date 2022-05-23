@@ -1,0 +1,98 @@
+<template>
+  <div class="chooseimage">
+    <div>
+      <div class="block">
+        <el-image class="thumb-image" :src="src" alt="">
+          <template #placeholder>
+            <div class="image-slot">Loading<span class="dot">...</span></div>
+          </template>
+        </el-image>
+      </div>
+    </div>
+    <input type="file" v-on:change="onChooseImageChange" />
+    <div class="infor">
+      <el-select v-model="author" class="m-2" placeholder="Select Author" size="large">
+        <el-option v-for="item in authorOptions" :key="item.id" :label="item.name" :value="item.id" />
+      </el-select>
+      <el-input v-model="description" class="submit-info" :rows="10" type="textarea"
+        placeholder="Please input description" />
+      <el-button type="primary" class="submit-info" @click="onSubmit">submit</el-button>
+    </div>
+  </div>
+</template>
+
+<script lang='ts' setup>
+import { ref } from 'vue';
+import { onBeforeMount } from 'vue';
+import axios from "axios";
+import { InputInstance } from 'element-plus';
+
+const description = ref('')
+const author = ref('')
+const src = ref("")
+const upRef = ref<InputInstance>()
+
+const authorOptions = ref([]);
+
+
+onBeforeMount(() => {
+  console.log("fdfafdafad")
+  axios.get("http://127.0.0.1:5000/authors").then((response: { data: any; }) => {
+    let da = eval(response.data);
+    console.log(response.data);
+    authorOptions.value = da['data']
+  })
+})
+
+const onChooseImageChange = (payload: Event)=>{
+  let e: InputInstance = payload.target!
+  upRef.value = e.value
+  console.log(payload.target!.value)
+  src.value = payload.target!.value
+}
+
+const onSubmit = ()=>{
+
+}
+
+</script>
+
+<style scoped>
+.block {
+  width: 100%;
+  height: 400px;
+}
+
+.thumb-image {
+  width: 100%;
+  height: 400px;
+}
+
+.image-image {
+  width: 100%;
+  height: 400px;
+  min-width: 100%;
+  min-height: 300;
+}
+
+.chooseimage {
+  width: 600px;
+  display: inline-block;
+  margin: 10px;
+  background: bisque;
+}
+
+.upload {
+  width: 100%;
+}
+
+.m-2 {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit-info {
+  width: 100%;
+  margin-top: 10px;
+}
+</style>
