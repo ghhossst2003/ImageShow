@@ -22,6 +22,7 @@ app.app.config['DOWNLOAD_FOLDER'] = 'upload/'
 @cross_origin()
 def upload_works():
     if request.method == 'POST':
+        print(request)
         f = request.files['file']
         author = request.values.get('author')
         create_time = request.values.get('creation_time')

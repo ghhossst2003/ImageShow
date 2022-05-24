@@ -52,7 +52,6 @@ const handleChange = (uploadFile: UploadFile) => {
   src.value = URL.createObjectURL(uploadFile.raw!)
   filename.value = uploadFile.name
   uploadFileRef.value = uploadFile
-  console.log(uploadFile)
 }
 
 const authorOptions = ref([]);

@@ -30,7 +30,7 @@ import { InputInstance } from 'element-plus';
 const description = ref('')
 const author = ref('')
 const src = ref("")
-const upRef = ref<InputInstance>()
+const upRef = ref<InputFile>()
 
 const authorOptions = ref([]);
 
@@ -46,7 +46,7 @@ onBeforeMount(() => {
 
 const onChooseImageChange = (payload: Event)=>{
   let e: InputInstance = payload.target!
-  upRef.value = e.value
+  upRef.value = e.
   console.log(payload.target!.value)
   src.value = payload.target!.value
 }
