@@ -11,6 +11,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "element-plus": "^2.1.11",
+    "lib-flexible": "^0.3.2",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.3"
@@ -28,6 +29,7 @@
     "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "postcss-pxtorem": "^5.1.1",
     "typescript": "~4.5.5"
   }
 }

@@ -1,0 +1,34 @@
+// base.scss
+$maxWidth: 540px;
+@mixin MaxWidth {
+    @media screen and (min-width: 540px) {
+        @content;
+    }
+}
+
+@mixin MaxWidth-center {
+    @media screen and (min-width: 540px) {
+        max-width: $maxWidth;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+html {
+    margin: auto;
+    max-width: $maxWidth;
+    height: 100%;
+    font-size: 10vw;
+    // background: #ccc;
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+    @include MaxWidth() {
+        font-size: calc((#{$maxWidth} - 17px) / 10);
+    }
+}
+body {
+    margin: auto;
+    max-width: $maxWidth;
+    height: 100%;
+    font-size: 16px;
+    -webkit-text-size-adjust: none !important;
+   
+}
