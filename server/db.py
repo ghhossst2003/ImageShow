@@ -2,13 +2,12 @@
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-import app
 
 
-app.app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://%s:%s@127.0.0.1:3306/%s' % (
+database_uri = 'mysql://%s:%s@127.0.0.1:3306/%s' % (
     'root', 'root123456', 'CreateSystem')
 # 初始化数据库连接:
-engine = create_engine(app.app.config['SQLALCHEMY_DATABASE_URI'])
+engine = create_engine(database_uri)
 # 创建DBSession类型:
 DBSession = sessionmaker(bind=engine)
 

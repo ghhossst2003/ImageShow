@@ -6,6 +6,8 @@ from db import DBSession
 from author import Author
 from image import Image
 from db import serialize
+from database import select
+from database import db_pool
 
 Base = declarative_base()
 
@@ -33,7 +35,7 @@ def save_art_product(author, image_id, description, create_time, upload_time):
 
 def get_works():
     with DBSession() as session:
-        records = session.query(ArtProduct.description, ArtProduct.creation_time, ArtProduct.upload_time, Image.path, Author.name).outerjoin(Image, Image.id == ArtProduct.file_id).outerjoin(Author, Author.id == ArtProduct.author_id).all()
+        records = session.query(ArtProduct.id, ArtProduct.description, ArtProduct.creation_time, ArtProduct.upload_time, Image.path, Author.name).outerjoin(Image, Image.id == ArtProduct.file_id).outerjoin(Author, Author.id == ArtProduct.author_id).all()
     u = []
     for record in records:
         v = {}
@@ -41,3 +43,17 @@ def get_works():
             v[key] = record[key]
         u.append(v)
     return u
+
+
+@select(db_pool)
+def get_works1(cursor, *args, **kwargs) -> object:
+    page = kwargs['page']
+    sql = '''select art.id, art.description, art.creation_time, art.upload_time, au.name, fi.path 
+                from cs_art_product as art
+                JOIN cs_authors AS au ON art.author_id = au.id
+                JOIN cs_file AS fi ON art.file_id = fi.id
+                order by art.upload_time desc limit %d, %d
+                ''' %((page-1)*5,5)
+    print(sql)
+    cursor.execute(sql)
+    return cursor.fetchall()

@@ -1,32 +1,28 @@
 <template>
   <div class="chooseimage">
-    <div>
-      <div class="block">
-        <el-image class="thumb-image" :src="src" alt="">
-          <template #placeholder>
-            <div class="image-slot">Loading<span class="dot">...</span></div>
-          </template>
-        </el-image>
+    <div class="bord-10">
+      <div>
+        <div class="block">
+          <el-image class="thumb-image" :src="src" alt="">
+            <template #placeholder>
+              <div class="image-slot">Loading<span class="dot">...</span></div>
+            </template>
+          </el-image>
+        </div>
       </div>
-    </div>
-    <p>{{ filename }}</p>
-    <el-upload ref="uploadRef" class="upload" 
-      action="http://127.0.0.1:5000/upload_works" 
-      :auto-upload="false"
-      :data="formData" 
-      :on-change="handleChange" 
-      :show-file-list="false" 
-      :limit="1" 
-      :on-exceed="handleExceed">
-      <el-button type="primary" class="upload">select file</el-button>
-    </el-upload>
-    <div class="infor">
-      <el-select v-model="author" class="m-2" placeholder="Select Author" size="large">
-        <el-option v-for="item in authorOptions" :key="item.id" :label="item.name" :value="item.id" />
-      </el-select>
-      <el-input v-model="description" class="submit-info" :rows="10" type="textarea"
-        placeholder="Please input description" />
-      <el-button type="primary" class="submit-info" @click="onSubmit">submit</el-button>
+
+      <el-upload ref="uploadRef" class="upload" action="http://127.0.0.1:5000/upload_works" :auto-upload="false"
+        :data="formData" :on-change="handleChange" :show-file-list="false" :limit="1" :on-exceed="handleExceed">
+          <el-button type="primary" class="upload-button">select file</el-button><p>{{ filename }}</p>
+      </el-upload>
+      <div class="infor">
+        <el-select v-model="author" class="m-2" placeholder="Select Author" size="large">
+          <el-option v-for="item in authorOptions" :key="item.id" :label="item.name" :value="item.id" />
+        </el-select>
+        <el-input v-model="description" class="submit-info" :rows="10" type="textarea"
+          placeholder="Please input description" />
+        <el-button type="primary" class="submit-info" @click="onSubmit">submit</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -40,8 +36,8 @@ import { onBeforeMount } from 'vue';
 import axios from "axios";
 
 interface AuthorData {
-  id:number;
-  name:string;
+  id: number;
+  name: string;
 }
 const uploadRef = ref<UploadInstance>()
 const filename = ref('')
@@ -113,21 +109,33 @@ onBeforeMount(() => {
 .chooseimage {
   width: 100%;
   display: inline-block;
-  margin: 10px;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
   background: bisque;
 }
 
 .upload {
+  text-align: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.upload-button {
   width: 100%;
 }
 
 .m-2 {
   width: 100%;
-  margin-top: 10px;
 }
 
 .submit-info {
   width: 100%;
   margin-top: 10px;
+}
+
+.bord-10 {
+  padding: 10px;
 }
 </style>
